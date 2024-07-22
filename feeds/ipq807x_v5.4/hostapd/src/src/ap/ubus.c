@@ -1830,7 +1830,8 @@ ubus_event_cb(struct ubus_notify_request *req, int idx, int ret)
 {
 	struct ubus_event_req *ureq = container_of(req, struct ubus_event_req, nreq);
 
-	ureq->resp = ret;
+	if (!ureq->resp)
+		ureq->resp = ret;
 }
 
 int hostapd_ubus_handle_event(struct hostapd_data *hapd, struct hostapd_ubus_request *req)
@@ -1863,6 +1864,7 @@ int hostapd_ubus_handle_event(struct hostapd_data *hapd, struct hostapd_ubus_req
 
 	blob_buf_init(&b, 0);
 	blobmsg_add_macaddr(&b, "address", addr);
+	blobmsg_add_string(&b, "ifname", hapd->conf->iface);
 	if (req->mgmt_frame)
 		blobmsg_add_macaddr(&b, "target", req->mgmt_frame->da);
 	if (req->ssi_signal)
