@@ -1,0 +1,12 @@
+---
+description: Add the Cyber dependencies
+feeds:
+  - name: cyber
+    uri: git@github.com:optim-enterprises-bv/optim-wrt.git
+    branch: master
+packages:
+  - nDPId
+  - speedtest-netperf
+  # - suricata
+  # - netbird
+
